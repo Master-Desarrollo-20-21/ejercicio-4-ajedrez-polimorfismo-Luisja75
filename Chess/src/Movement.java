@@ -3,32 +3,33 @@ public class Movement {
 	private Console console;
 	private Board board;
 	
-	private Player player;
+	private Color color;
 	private Coordenada origin;
 	private Coordenada destination;
 	private DataMovement dataMovement; 
 	
-	public Movement(Board board, Player player) {
+	public Movement(Board board, Color color) {
 		this.console = new Console();
 		this.board = board;
-		this.player = player;
-	}
-
-	public void requestCoordenates() {
+		this.color = color;
 		do {
-			requestOrigen();
-			requestDestination();	
+			requestCoordenates();
+			calculate();
 		} while (!this.isCorrect());   	
-	
 	}
 
-	public Coordenada getOrigin() {
-		 return origin;
+	private void requestCoordenates() {
+		requestOrigen();
+		requestDestination();	
 	}
 	
-	public Coordenada getDestination() {
-		 return destination;
-	}	
+	private void calculate() {
+		TypeMovement type = this.getType();
+		TypeDirection direction = this.getDirection();		
+		int distance = this.getDistance(type);
+		boolean freeway = this.getFreeWay(type, direction, distance);
+		this.dataMovement = new DataMovement(type, direction, distance, freeway);
+	}
 
     private void requestOrigen(){
 		boolean coordenadaOrigenValida = false;
@@ -46,7 +47,7 @@ public class Movement {
 			console.out("La coordenada origen no tiene ficha\n");
 			return false;
 		}
-		if (box.IsPlayer(this.player)) {
+		if (box.IsPlayer(this.color)) {
 			console.out("La coordenada origen tiene una ficha que no es de tu jugador\n");
 			return false;
 		}
@@ -66,7 +67,7 @@ public class Movement {
 
 	private boolean coordenadaDestinoValida() {
 		Box box = board.getBox(destination);
-		if(box.IsPlayer(player)) {
+		if(box.IsPlayer(color)) {
 			console.out("La coordenada destino tiene una ficha de tu jugador\n");
 			return false;
 		}
@@ -84,7 +85,7 @@ public class Movement {
 		} else if (Math.abs(origin.fila - destination.fila) == Math.abs(origin.columna - destination.columna)) {
 			type = TypeMovement.DIAGONAL;
 			Box box = board.getBox(destination);
-			if(box.IsPlayer(player)) {
+			if(box.IsPlayer(color)) {
 				type = TypeMovement.DIAGONAL_BY_EAT;
 			}
 		} else if ((Math.abs(origin.fila - destination.fila) == 2 && Math.abs(origin.columna - destination.columna) == 1) ||
@@ -118,48 +119,18 @@ public class Movement {
 		return distance;
 	}
 	
-	private boolean isCorrect() {
-		TypeMovement type = getType();
-		TypeDirection direction = getDirection();
-		int distance = getDistance(type);
-		this.dataMovement = new DataMovement(type, direction, distance);
-						
-		if (type == TypeMovement.UNKNOWN){
-			console.out("El movimiento introducido es desconocido\n");
-			return false;
-		}
-
-		Box box = board.getBox(this.origin);
-		Token tokenOrigin = box.getToken();
-		if (!tokenOrigin.isMovementAllow(type) && !tokenOrigin.isDirectionAllow(direction) && !tokenOrigin.isDistanceAllow(distance)) {
-			console.out("El movimiento introducido no está permitido para la pieza que se quiere mover.");
-			return false;	
-		}
-
-		if (!this.freeWay(this.dataMovement)) {
-			console.out("El movimiento introducido no está permitido porque hay piezas en el camnino\n");
-			return false;
-		}
-	
-		return true;
-	}
-	
-	private boolean freeWay(DataMovement dataMovement) {
-		if (dataMovement.getType() == TypeMovement.L) {
-			return true;
-		}
-
+	private boolean getFreeWay(TypeMovement type, TypeDirection direction, int distance) {
 		int incrementToNextFila = 0; 
 		int incrementToNextColum = 0; 
-		if (dataMovement.getType() == TypeMovement.HORIZONTAL || dataMovement.getType() == TypeMovement.DIAGONAL) {
-			if (dataMovement.getDirection() == TypeDirection.BACK) {
+		if (type == TypeMovement.HORIZONTAL || type == TypeMovement.DIAGONAL) {
+			if (direction == TypeDirection.BACK) {
 				incrementToNextColum = -1;
 			} else {
 				incrementToNextColum = 1;
 			}			
 		}
-		if (dataMovement.getType() == TypeMovement.VERTICAL || dataMovement.getType() == TypeMovement.DIAGONAL) {
-			if (dataMovement.getDirection() == TypeDirection.BACK) {
+		if (type == TypeMovement.VERTICAL || type == TypeMovement.DIAGONAL) {
+			if (direction == TypeDirection.BACK) {
 				incrementToNextFila = -1;
 			} else {
 				incrementToNextFila = 1;
@@ -168,7 +139,7 @@ public class Movement {
 
 		int nextFila = origin.fila + incrementToNextFila;
 		int nextColum = origin.columna + incrementToNextColum;
-		for (int i=1; i<=dataMovement.getDistance(); i++) {
+		for (int i=1; i<=distance; i++) {
 			Coordenada nextCoordenate = new Coordenada(nextFila, nextColum);
 			Box box = board.getBox(nextCoordenate);
 			if (box.hasToken()) {				
@@ -180,5 +151,38 @@ public class Movement {
 		
 		return true;
 	}
+
+	private boolean isCorrect() {		
+		if (dataMovement.getType() == TypeMovement.L) {
+			return true;
+		}		
+		
+		if (this.dataMovement.getType() == TypeMovement.UNKNOWN){
+			console.out("El movimiento introducido es desconocido\n");
+			return false;
+		}
+
+		Box box = board.getBox(this.origin);
+		Token tokenOrigin = box.getToken();
+		if (!tokenOrigin.isMovementAllow(this.dataMovement.getType()) && !tokenOrigin.isDirectionAllow(this.dataMovement.getDirection()) && !tokenOrigin.isDistanceAllow(this.dataMovement.getDistance())) {
+			console.out("El movimiento introducido no está permitido para la pieza que se quiere mover.");
+			return false;	
+		}
+
+		if (!this.dataMovement.getFreeWay()) {
+			console.out("El movimiento introducido no está permitido porque hay piezas en el camnino\n");
+			return false;
+		}
+	
+		return true;
+	}
+	
+	public Coordenada getOrigin() {
+		 return origin;
+	}
+	
+	public Coordenada getDestination() {
+		 return destination;
+	}	
 }
 

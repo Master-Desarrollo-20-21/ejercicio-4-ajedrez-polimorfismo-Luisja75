@@ -1,26 +1,29 @@
 abstract class Token {
 
 	protected Console console;
-	protected Player player;			
+	protected Color color;			
 	
-	public Token(Player player) 
+	public Token(Color color) 
 	{
 		console = new Console();
-		this.player = player;
+		this.color = color;
 	}
 	
-	public boolean isPlayer(Player player) {
+	public boolean isPlayer(Color color) {
 		if (!hasPlayer()) {
 			return false;
 		}
 				
-		return ((this.player.isWhite() && player.isWhite()) || 
-				(!this.player.isWhite() && !player.isWhite())
-			   );
+		//LUIS REVISAR
+		return this.color == color;
+				
+		//return ((this.color.WHITE == color.WHITE || 
+		//		(!this.color.WHITE && !color.WHITE)
+		//	   );
 	}	
 
 	public boolean hasPlayer() {
-		return (player != null);
+		return (color != null);
 	}			
 	
 	public abstract boolean isDirectionAllow(TypeDirection typeDirection);

@@ -3,11 +3,13 @@ public class DataMovement {
 	private TypeMovement type;
 	private TypeDirection direction;
 	private int distance;
+	private boolean freeWay;
 	
-	public DataMovement(TypeMovement type, TypeDirection direction, int distance) {
+	public DataMovement(TypeMovement type, TypeDirection direction, int distance, boolean freeway) {
 		this.type = type;
 		this.direction = direction;
 		this.distance = distance;
+		this.freeWay = freeWay;
 	}
 
 	public TypeMovement getType() {
@@ -20,6 +22,10 @@ public class DataMovement {
 
 	public int getDistance() {
 		return distance;
+	}
+
+	public boolean getFreeWay() {
+		return freeWay;
 	}
 }
 

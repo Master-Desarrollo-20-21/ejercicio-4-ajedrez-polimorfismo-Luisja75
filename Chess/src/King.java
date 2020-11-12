@@ -2,8 +2,8 @@ class King extends Token {
 	
 	private static final int LIMIT_NUMBER_VOX_MOVEMENT = 1;
 	
-	public King(Player player){
-		super(player);
+	public King(Color color){
+		super(color);
 	}
 	
 	@Override
@@ -28,7 +28,7 @@ class King extends Token {
 	
 	@Override
 	public void show() {
-		if (player.isWhite()) {
+		if (color == Color.WHITE) {
 			console.out(TypeToken.KING.getKeyword().toLowerCase());
 		} 
 		else {

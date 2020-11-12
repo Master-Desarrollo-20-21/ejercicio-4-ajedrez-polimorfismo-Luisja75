@@ -13,14 +13,14 @@ class Chess {
 	    for(int i=0; i<NUM_JUGADORES; i++){
 	    	players[i] = new Player(COLORS[i]);
 	    }
-	    this.board = new Board(players);
+	    this.board = new Board(COLORS);
 	    shift = new Shift();
     }
     
 	private void play() { 
         board.show();
         do {
-        	Movement movement = players[shift.toca()].getMovement(board);
+        	Movement movement = board.getMovement(players[shift.toca()].getColor());
         	board.moveToken(movement.getOrigin(), movement.getDestination());
             board.show();
         	shift.cambiar();

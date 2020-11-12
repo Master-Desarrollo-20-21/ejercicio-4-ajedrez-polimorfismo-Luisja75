@@ -1,8 +1,8 @@
 class Knight extends Token {
 		
-	public Knight(Player player)
+	public Knight(Color color)
 	{
-		super(player);
+		super(color);
 	}
 	
 	@Override
@@ -32,7 +32,7 @@ class Knight extends Token {
 	
 	@Override
 	public void show() {
-		if (player.isWhite()) {
+		if (color == Color.WHITE) {
 			console.out(TypeToken.KNIGHT.getKeyword().toLowerCase());
 		} 
 		else {

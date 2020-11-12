@@ -4,16 +4,16 @@ class Pawn extends Token {
 	private static final int LIMIT_NUMBER_VOX_FIRST_MOVEMENT = 2;
 	private boolean firstMovement;
 	
-	public Pawn(Player player)
+	public Pawn(Color color)
 	{
-		super(player);
+		super(color);
 		firstMovement = true;		
 	}
 
 	@Override
 	public boolean isDirectionAllow(TypeDirection typeDirection) {
-		return  (player.isWhite() && typeDirection==TypeDirection.FORWARD) ||
-				(!player.isWhite() && typeDirection==TypeDirection.BACK);
+		return  (color == Color.WHITE && typeDirection==TypeDirection.FORWARD) ||
+				(color == Color.WHITE && typeDirection==TypeDirection.BACK);
 	}
 	
 	@Override
@@ -37,7 +37,7 @@ class Pawn extends Token {
 	
 	@Override
 	public void show() {
-		if (player.isWhite()) {
+		if (color == Color.WHITE) {
 			console.out(TypeToken.PAWN.getKeyword().toLowerCase());
 		} 
 		else {

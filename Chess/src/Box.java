@@ -32,7 +32,7 @@ class Box {
 		return this.token!=null && this.token.isKing();
 	}
 
-	public boolean IsPlayer(Player player) {
-		return this.token!=null && this.token.isPlayer(player);
+	public boolean IsPlayer(Color color) {
+		return this.token!=null && this.token.isPlayer(color);
 	}		
 }
