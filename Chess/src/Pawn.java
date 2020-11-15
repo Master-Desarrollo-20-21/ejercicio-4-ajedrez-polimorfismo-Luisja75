@@ -49,12 +49,7 @@ class Pawn extends Piece {
 	}
 	
 	@Override
-	public void show() {
-		if (this.color == Color.WHITE) {
-			console.out(TypeToken.PAWN.getKeyword().toLowerCase());
-		} 
-		else {
-			console.out(TypeToken.PAWN.getKeyword().toUpperCase());
-		}
-	}		
+	public String getKeyword() {
+		return TypeToken.PAWN.getKeyword();
+	}			
 }

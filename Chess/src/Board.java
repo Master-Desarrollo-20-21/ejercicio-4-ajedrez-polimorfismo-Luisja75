@@ -1,11 +1,19 @@
 class Board {
 
-	private static final int[] INITIAL_COLUMNS_KING = {4};
-	private static final int[] INITIAL_FILE_KING = {0,7};
+	private static final int[] INITIAL_COLUMNS_ROOK = {0,7};
 	private static final int[] INITIAL_COLUMNS_KNIHGT = {1,6};
-	private static final int[] INITIAL_FILE_KNIHGT = {0,7};
+	private static final int[] INITIAL_COLUMNS_BISHOP = {2,5};
+	private static final int[] INITIAL_COLUMNS_QUEEN = {3};
+	private static final int[] INITIAL_COLUMNS_KING = {4};
 	private static final int[] INITIAL_COLUMNS_PAWN = {0,1,2,3,4,5,6,7};
+
+	private static final int[] INITIAL_FILE_ROOK = {0,7};
+	private static final int[] INITIAL_FILE_KNIHGT = {0,7};
+	private static final int[] INITIAL_FILE_BISHOP = {0,7};
+	private static final int[] INITIAL_FILE_QUEEN = {0,7};
+	private static final int[] INITIAL_FILE_KING = {0,7};
 	private static final int[] INITIAL_FILE_PAWN = {1,6};
+
 	private Square[][] squares;
 	Console console;
 	
@@ -27,16 +35,19 @@ class Board {
 	private void setInitialSquares(Color[] colors) {
 		for (int i=0; i<colors.length; i++)
 		{
-			setInitialSquares(INITIAL_FILE_PAWN[i], INITIAL_COLUMNS_PAWN, new Pawn(colors[i]));
+			setInitialSquares(INITIAL_FILE_ROOK[i], INITIAL_COLUMNS_ROOK, new Rook(colors[i]));
 			setInitialSquares(INITIAL_FILE_KNIHGT[i], INITIAL_COLUMNS_KNIHGT, new Knight(colors[i]));
+			setInitialSquares(INITIAL_FILE_BISHOP[i], INITIAL_COLUMNS_BISHOP, new Bishop(colors[i]));
+			setInitialSquares(INITIAL_FILE_QUEEN[i], INITIAL_COLUMNS_QUEEN, new Queen(colors[i]));
 			setInitialSquares(INITIAL_FILE_KING[i], INITIAL_COLUMNS_KING, new King(colors[i]));
+			setInitialSquares(INITIAL_FILE_PAWN[i], INITIAL_COLUMNS_PAWN, new Pawn(colors[i]));
 		}
 	}
 	
 	private void setInitialSquares(int file, int[] columns, Piece piece) {
-		for (int j : columns)
+		for (int column : columns)
 		{
-			(squares[file][j]).setPiece(piece);
+			(squares[file][column]).setPiece(piece);
 		}
 	}
 	

@@ -1,7 +1,10 @@
 enum TypeToken {
+	ROOK('R'),
+	KNIGHT('N'),
+	BISHOP('B'),
+	QUEEN('Q'),
 	KING('K'),
-	PAWN('P'),
-	KNIGHT('C');
+	PAWN('P');
 	
 	private char keyword;
 	

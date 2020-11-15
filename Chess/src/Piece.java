@@ -38,7 +38,7 @@ abstract class Piece {
 			return false;
 		}
 	}
-
+	
 	protected abstract boolean isDirectionAllow(TypeDirection typeDirection);
 	
 	protected abstract boolean isDistanceAllow(int distance);
@@ -46,11 +46,21 @@ abstract class Piece {
 	protected abstract boolean isMovementAllow(TypeMovement typeMovement, boolean isEatPeace);
 
 	protected abstract boolean isFreeWay(boolean freeWay);
+
+	public void show() {
+		if (this.color == Color.WHITE) {
+			console.out(this.getKeyword().toLowerCase());
+		} 
+		else {
+			console.out(this.getKeyword().toUpperCase());
+		}
+	}		
+	
+	protected abstract String getKeyword();
 	
 	public abstract void setMovementDone();
 	
 	public abstract boolean isKing();
 	
-	public abstract void show();	
 }
 

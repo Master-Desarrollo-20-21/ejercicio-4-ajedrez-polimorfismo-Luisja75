@@ -1,8 +1,6 @@
-class King extends Piece {
+class Queen extends Piece {
 	
-	private static final int LIMIT_NUMBER_VOX_MOVEMENT = 1;
-	
-	public King(Color color){
+	public Queen(Color color){
 		super(color);
 	}
 	
@@ -13,7 +11,7 @@ class King extends Piece {
 	
 	@Override
 	protected boolean isDistanceAllow(int distance) {
-		return distance == King.LIMIT_NUMBER_VOX_MOVEMENT;
+		return true;
 	}	
 	
 	@Override
@@ -35,11 +33,12 @@ class King extends Piece {
 	
 	@Override
 	public boolean isKing() {
-		return true;
+		return false;
 	}
 	
 	@Override
 	public String getKeyword() {
-		return TypeToken.KING.getKeyword();
+		return TypeToken.QUEEN.getKeyword();
 	}	
+
 }

@@ -40,12 +40,7 @@ class Knight extends Piece {
 	}
 	
 	@Override
-	public void show() {
-		if (this.color == Color.WHITE) {
-			console.out(TypeToken.KNIGHT.getKeyword().toLowerCase());
-		} 
-		else {
-			console.out(TypeToken.KNIGHT.getKeyword().toUpperCase());
-		}
+	public String getKeyword() {
+		return TypeToken.KNIGHT.getKeyword();
 	}	
 }
