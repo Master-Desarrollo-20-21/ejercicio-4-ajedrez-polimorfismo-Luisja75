@@ -52,19 +52,21 @@ class Board {
 	}
 	
 	public void show() {		
-		console.out("  ");
+		console.out("\t|");
 		for (String column : Coordinate.ALLOWS[1]) {	
-			console.out(column + " ");
+			console.out("   " + column + "\t|");
 		}
 		console.out("\n");
+		console.out(" _______|_______|_______|_______|_______|_______|_______|_______|_______|\n");
 		
 		for (int i=0; i<Coordinate.ALLOWS[0].length; i++) {
-			console.out(Coordinate.ALLOWS[0][i] + " ");
-			for (int j=0; j<Coordinate.ALLOWS[1].length; j++) {				
-				(squares[i][j]).show();
-				console.out(" ");
+			console.out("   " + Coordinate.ALLOWS[0][i] + "\t|");
+			for (int j=0; j<Coordinate.ALLOWS[1].length; j++) {
+				System.out.print((squares[i][j]).show());
+				System.out.print("\t|");
 			}
 			console.out("\n");
+			console.out(" _______|_______|_______|_______|_______|_______|_______|_______|_______|\n");
 		}		
 		console.out("\n");
 	}
@@ -77,7 +79,7 @@ class Board {
 		} while (!this.isMovementCorrect(color, movement));   	
 		
 		return movement;
-	}	
+		}	
 	
 	private boolean isMovementCorrect(Color color, Movement movement) {
 		return coordenadaOrigenValida(color, movement) && 

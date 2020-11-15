@@ -1,5 +1,8 @@
 class Knight extends Piece {
-		
+
+	public static final String UNICODE_PIECE_WHITE = "\u2658";
+	public static final String UNICODE_PIECE_BLACK = "\u265E";
+	
 	public Knight(Color color)
 	{
 		super(color);
@@ -40,7 +43,12 @@ class Knight extends Piece {
 	}
 	
 	@Override
-	public String getKeyword() {
-		return TypeToken.KNIGHT.getKeyword();
+	public String getSymbol() {
+		if (this.color == Color.WHITE) {
+			return Knight.UNICODE_PIECE_WHITE;
+		} 
+		else {
+			return Knight.UNICODE_PIECE_BLACK;
+		}
 	}	
 }

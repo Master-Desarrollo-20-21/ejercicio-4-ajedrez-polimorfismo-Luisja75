@@ -1,5 +1,7 @@
 class Pawn extends Piece {
 
+	public static final String UNICODE_PIECE_WHITE = "\u2659";
+	public static final String UNICODE_PIECE_BLACK = "\u265F";
 	private static final int LIMIT_NUMBER_VOX_MOVEMENT = 1;
 	private static final int LIMIT_NUMBER_VOX_FIRST_MOVEMENT = 2;
 	private boolean firstMovement;
@@ -49,7 +51,12 @@ class Pawn extends Piece {
 	}
 	
 	@Override
-	public String getKeyword() {
-		return TypeToken.PAWN.getKeyword();
-	}			
+	public String getSymbol() {
+		if (this.color == Color.WHITE) {
+			return Pawn.UNICODE_PIECE_WHITE;
+		} 
+		else {
+			return Pawn.UNICODE_PIECE_BLACK;
+		}
+	}
 }

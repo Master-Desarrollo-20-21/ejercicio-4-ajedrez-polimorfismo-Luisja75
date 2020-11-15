@@ -1,9 +1,17 @@
 class King extends Piece {
 	
 	private static final int LIMIT_NUMBER_VOX_MOVEMENT = 1;
+	public static final String UNICODE_PIECE_WHITE = "\u2654";
+	public static final String UNICODE_PIECE_BLACK = "\u265A";
 	
 	public King(Color color){
 		super(color);
+		
+		String unicodePiece = King.UNICODE_PIECE_WHITE;
+		if (color == Color.BLACK) {
+			unicodePiece = King.UNICODE_PIECE_BLACK;
+		}
+		this.setUnicodePiece(unicodePiece);		
 	}
 	
 	@Override
@@ -39,7 +47,12 @@ class King extends Piece {
 	}
 	
 	@Override
-	public String getKeyword() {
-		return TypeToken.KING.getKeyword();
+	public String getSymbol() {
+		if (this.color == Color.WHITE) {
+			return King.UNICODE_PIECE_WHITE;
+		} 
+		else {
+			return King.UNICODE_PIECE_BLACK;
+		}
 	}	
 }

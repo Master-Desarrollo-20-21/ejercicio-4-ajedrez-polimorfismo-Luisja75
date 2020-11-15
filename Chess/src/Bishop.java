@@ -1,5 +1,9 @@
 class Bishop extends Piece {
-		
+
+	public static final String UNICODE_PIECE_WHITE = "\u2657";
+	public static final String UNICODE_PIECE_BLACK = "\u265D";
+	
+	
 	public Bishop(Color color){
 		super(color);
 	}
@@ -37,7 +41,12 @@ class Bishop extends Piece {
 	}
 	
 	@Override
-	public String getKeyword() {
-		return TypeToken.BISHOP.getKeyword();
-	}
+	public String getSymbol() {
+		if (this.color == Color.WHITE) {
+			return Bishop.UNICODE_PIECE_WHITE;
+		} 
+		else {
+			return Bishop.UNICODE_PIECE_BLACK;
+		}
+	}	
 }

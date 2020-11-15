@@ -5,13 +5,12 @@ class Square {
 	public Square() {
 	}
 	
-	public void show() {
-		Console console = new Console();
+	public String show() {
 		if (piece == null) {
-			console.out('_');
+			return "    ";
 		}
 		else {
-			piece.show();
+			return "   " + piece.show() + "  ";
 		}
 	}
 	

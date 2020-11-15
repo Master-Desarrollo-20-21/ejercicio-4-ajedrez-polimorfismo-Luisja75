@@ -1,8 +1,13 @@
 abstract class Piece {
 
 	protected Console console;
-	protected Color color;			
-	
+	protected Color color;
+	protected String unicodePiece;
+
+	protected void setUnicodePiece(String unicodePiece) {
+		this.unicodePiece = unicodePiece;
+	}
+		
 	public Piece(Color color) 
 	{
 		console = new Console();
@@ -47,20 +52,14 @@ abstract class Piece {
 
 	protected abstract boolean isFreeWay(boolean freeWay);
 
-	public void show() {
-		if (this.color == Color.WHITE) {
-			console.out(this.getKeyword().toLowerCase());
-		} 
-		else {
-			console.out(this.getKeyword().toUpperCase());
-		}
+	public String show() {
+		return this.getSymbol();
 	}		
 	
-	protected abstract String getKeyword();
+	protected abstract String getSymbol();
 	
 	public abstract void setMovementDone();
 	
 	public abstract boolean isKing();
-	
 }
 

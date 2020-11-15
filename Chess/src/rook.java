@@ -1,5 +1,8 @@
 class Rook extends Piece {
-		
+
+	public static final String UNICODE_PIECE_WHITE = "\u2656";
+	public static final String UNICODE_PIECE_BLACK = "\u265C";
+	
 	public Rook(Color color){
 		super(color);
 	}
@@ -37,7 +40,12 @@ class Rook extends Piece {
 	}
 
 	@Override
-	public String getKeyword() {
-		return TypeToken.ROOK.getKeyword();
+	public String getSymbol() {
+		if (this.color == Color.WHITE) {
+			return Rook.UNICODE_PIECE_WHITE;
+		} 
+		else {
+			return Rook.UNICODE_PIECE_BLACK;
+		}
 	}	
 }

@@ -1,5 +1,8 @@
 class Queen extends Piece {
 	
+	public static final String UNICODE_PIECE_WHITE = "\u2655";
+	public static final String UNICODE_PIECE_BLACK = "\u265B";
+	
 	public Queen(Color color){
 		super(color);
 	}
@@ -37,8 +40,12 @@ class Queen extends Piece {
 	}
 	
 	@Override
-	public String getKeyword() {
-		return TypeToken.QUEEN.getKeyword();
-	}	
-
+	public String getSymbol() {
+		if (this.color == Color.WHITE) {
+			return Queen.UNICODE_PIECE_WHITE;
+		} 
+		else {
+			return Queen.UNICODE_PIECE_BLACK;
+		}
+	}
 }
