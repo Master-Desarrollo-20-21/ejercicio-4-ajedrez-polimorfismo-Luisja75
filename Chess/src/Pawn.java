@@ -9,15 +9,15 @@ class Pawn extends Token {
 		super(color);
 		firstMovement = true;		
 	}
-
+	
 	@Override
-	public boolean isDirectionAllow(TypeDirection typeDirection) {
+	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return  (color == Color.WHITE && typeDirection==TypeDirection.FORWARD) ||
-				(color == Color.WHITE && typeDirection==TypeDirection.BACK);
+				(color == Color.BLACK && typeDirection==TypeDirection.BACK);
 	}
 	
 	@Override
-	public boolean isDistanceAllow(int distance) {
+	protected boolean isDistanceAllow(int distance) {
 		int distanceMAximumAllow = Pawn.LIMIT_NUMBER_VOX_MOVEMENT;
 		if (firstMovement) {
 			distanceMAximumAllow = Pawn.LIMIT_NUMBER_VOX_FIRST_MOVEMENT;
@@ -26,8 +26,21 @@ class Pawn extends Token {
 	}
 	
 	@Override
-	public boolean isMovementAllow(TypeMovement typeMovement) {
-		return typeMovement == TypeMovement.VERTICAL || typeMovement == TypeMovement.DIAGONAL_BY_EAT;
+	protected boolean isMovementAllow(TypeMovement typeMovement, boolean isEatPeace) {
+		return typeMovement == TypeMovement.VERTICAL || (typeMovement == TypeMovement.DIAGONAL && isEatPeace);
+	}
+	
+	@Override
+	protected boolean isFreeWay(boolean freeWay) {
+		if (!freeWay) {
+			console.out("El movimiento introducido no está permitido porque hay piezas en el camnino\n");
+		}
+		return freeWay;
+	}	
+	
+	@Override
+	public void setMovementDone() {
+		this.firstMovement = false;
 	}
 	
 	@Override

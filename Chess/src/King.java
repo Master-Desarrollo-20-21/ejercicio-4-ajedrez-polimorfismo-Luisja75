@@ -7,19 +7,31 @@ class King extends Token {
 	}
 	
 	@Override
-	public boolean isDirectionAllow(TypeDirection typeDirection) {
+	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return  true;
 	}
 	
 	@Override
-	public boolean isDistanceAllow(int distance) {
+	protected boolean isDistanceAllow(int distance) {
 		return distance == King.LIMIT_NUMBER_VOX_MOVEMENT;
 	}	
 	
 	@Override
-	public boolean isMovementAllow(TypeMovement typeMovement) {
+	protected boolean isMovementAllow(TypeMovement typeMovement, boolean isEatPeace) {
 		return true;
 	}	
+	
+	@Override
+	protected boolean isFreeWay(boolean freeWay) {
+		if (!freeWay) {
+			console.out("El movimiento introducido no está permitido porque hay piezas en el camnino\n");
+		}
+		return freeWay;
+	}	
+	
+	@Override
+	public void setMovementDone() {
+	}
 	
 	@Override
 	public boolean isKing() {

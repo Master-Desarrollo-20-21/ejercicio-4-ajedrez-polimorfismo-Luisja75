@@ -6,17 +6,17 @@ class Knight extends Token {
 	}
 	
 	@Override
-	public boolean isDirectionAllow(TypeDirection typeDirection) {
+	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return true;
 	}
 	
 	@Override
-	public boolean isDistanceAllow(int distance) {
+	protected boolean isDistanceAllow(int distance) {
 		return true;
 	}
 			
 	@Override
-	public boolean isMovementAllow(TypeMovement typeMovement) {
+	protected boolean isMovementAllow(TypeMovement typeMovement, boolean isEatPeace) {
 		if (typeMovement == TypeMovement.L)	{
 			return true;
 		}
@@ -24,6 +24,15 @@ class Knight extends Token {
 			return false;
 		}
 	}	
+
+	@Override
+	protected boolean isFreeWay(boolean freeWay) {
+		return true;
+	}	
+	
+	@Override
+	public void setMovementDone() {
+	}
 	
 	@Override
 	public boolean isKing() {

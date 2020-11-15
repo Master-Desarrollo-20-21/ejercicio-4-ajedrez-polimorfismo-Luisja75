@@ -2,7 +2,6 @@ enum TypeMovement{
 	HORIZONTAL("H"),
 	VERTICAL("V"),
 	DIAGONAL("D"),
-	DIAGONAL_BY_EAT("E"),
 	L("L"),
 	UNKNOWN("X");	
 	

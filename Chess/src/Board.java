@@ -1,6 +1,5 @@
 class Board {
 
-	private static final int DIMENSION_BOARD = 8;
 	private static final int[] INITIAL_COLUMNS_KING = {4};
 	private static final int[] INITIAL_FILE_KING = {0,7};
 	private static final int[] INITIAL_COLUMNS_KNIHGT = {1,6};
@@ -17,10 +16,10 @@ class Board {
 	}
 	
 	private void setBoxs() {
-		boxs = new Box[DIMENSION_BOARD][DIMENSION_BOARD];
-		for (int i=0; i<=DIMENSION_BOARD-1; i++) {
-			for (int j=0; j<=DIMENSION_BOARD-1; j++) {
-				boxs[i][j] = new Box(new Coordenada(i, j));
+		boxs = new Box[Coordinate.ALLOWS[0].length][Coordinate.ALLOWS[1].length];
+		for (int i=0; i<Coordinate.ALLOWS[0].length; i++) {
+			for (int j=0; j<Coordinate.ALLOWS[1].length; j++) {
+				boxs[i][j] = new Box(new Coordinate(i, j));
 			}
 		}			
 	}		
@@ -42,10 +41,15 @@ class Board {
 	}
 	
 	public void show() {
-		console.out("  1 2 3 4 5 6 7 8\n");
-		for (int i=0; i<=DIMENSION_BOARD-1; i++) {
-			console.out(i+1 + " ");
-			for (int j=0; j<=DIMENSION_BOARD-1; j++) {				
+		console.out("  ");
+		for (String column : Coordinate.ALLOWS[1]) {	
+			console.out(column + " ");
+		}
+		console.out("\n");
+		
+		for (int i=0; i<Coordinate.ALLOWS[0].length; i++) {
+			console.out(Coordinate.ALLOWS[0][i] + " ");
+			for (int j=0; j<Coordinate.ALLOWS[1].length; j++) {				
 				(boxs[i][j]).show();
 				console.out(" ");
 			}
@@ -56,14 +60,60 @@ class Board {
 	
 	public Movement getMovement(Color color) {
 		console.out("Mueve el jugador " + color + "\n");
-		Movement movement = new Movement(this, color);
+		Movement movement;
+		do {
+			movement = new Movement(this);
+		} while (!this.isMovementCorrect(color, movement));   	
+		
 		return movement;
 	}	
 	
+	private boolean isMovementCorrect(Color color, Movement movement) {
+		return coordenadaOrigenValida(color, movement) && 
+			   coordenadaDestinoValida(color, movement) &&
+			   movementAllowInToken(color, movement);
+	}
+	
+	private boolean coordenadaOrigenValida(Color color, Movement movement) {
+		Box box = this.getBox(movement.getOrigin());
+		if(!box.hasToken()) {
+			console.out("La coordenada origen no tiene ficha\n");
+			return false;
+		}
+		if (!box.IsPlayer(color)) {
+			console.out("La coordenada origen tiene una ficha que no es de tu jugador\n");
+			return false;
+		}
+		return true;
+	}
+
+	private boolean coordenadaDestinoValida(Color color, Movement movement) {
+		Box box = this.getBox(movement.getDestination());
+		if(box.IsPlayer(color)) {
+			console.out("La coordenada destino tiene una ficha de tu jugador\n");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	private boolean movementAllowInToken(Color color, Movement movement) {		
+		boolean isEatPeace = false;
+		Box boxDestination = this.getBox(movement.getDestination());
+		if(!boxDestination.IsPlayer(color)) {
+			isEatPeace = true;
+		}
+
+		Box boxOrigin = this.getBox(movement.getOrigin());
+		Token tokenOrigin = boxOrigin.getToken();
+
+		return tokenOrigin.isMovementAllow(movement, isEatPeace);
+	}
+	
 	public boolean win() {
 		int numberKings = 0;
-		for (int i=0; i<=DIMENSION_BOARD-1; i++) {
-			for (int j=0; j<=DIMENSION_BOARD-1; j++) {
+		for (int i=0; i<Coordinate.ALLOWS[0].length; i++) {
+			for (int j=0; j<Coordinate.ALLOWS[1].length; j++) {
 				if ((boxs[i][j]).isKing()) {
 					numberKings++;
 				}
@@ -72,15 +122,14 @@ class Board {
 		return (numberKings<2);
 	}	
 
-	public Box getBox(Coordenada coordenada) {
-		return boxs[coordenada.fila-1][coordenada.columna-1];
+	public Box getBox(Coordinate coordenada) {
+		return boxs[coordenada.getRow()-1][coordenada.getColum()-1];
 	}
 
-	public void moveToken(Coordenada origin, Coordenada destination) {
-		Token token = (boxs[origin.fila-1][origin.columna-1]).getToken();
-		(boxs[origin.fila-1][origin.columna-1]).setToken(null);
-		(boxs[destination.fila-1][destination.columna-1]).setToken(token);
-	}
-	
-	
+	public void moveToken(Coordinate origin, Coordinate destination) {
+		Token token = (boxs[origin.getRow()-1][origin.getColum()-1]).getToken();
+		(boxs[origin.getRow()-1][origin.getColum()-1]).setToken(null);
+		(boxs[destination.getRow()-1][destination.getColum()-1]).setToken(token);
+		token.setMovementDone();
+	}	
 }

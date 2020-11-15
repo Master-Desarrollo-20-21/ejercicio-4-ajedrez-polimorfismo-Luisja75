@@ -5,7 +5,7 @@ public class DataMovement {
 	private int distance;
 	private boolean freeWay;
 	
-	public DataMovement(TypeMovement type, TypeDirection direction, int distance, boolean freeway) {
+	public DataMovement(TypeMovement type, TypeDirection direction, int distance, boolean freeWay) {
 		this.type = type;
 		this.direction = direction;
 		this.distance = distance;
@@ -13,19 +13,19 @@ public class DataMovement {
 	}
 
 	public TypeMovement getType() {
-		return type;
+		return this.type;
 	}
 
 	public TypeDirection getDirection() {
-		return direction;
+		return this.direction;
 	}
 
 	public int getDistance() {
-		return distance;
+		return this.distance;
 	}
 
 	public boolean getFreeWay() {
-		return freeWay;
+		return this.freeWay;
 	}
 }
 

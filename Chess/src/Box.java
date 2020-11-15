@@ -3,7 +3,7 @@ class Box {
 	private Console console;
 	private Token token;
 	
-	public Box(Coordenada coordenada) {
+	public Box(Coordinate coordenada) {
 		console = new Console();
 	}
 	
