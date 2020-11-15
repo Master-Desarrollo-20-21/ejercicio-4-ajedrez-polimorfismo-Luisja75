@@ -1,4 +1,4 @@
-class Knight extends Token {
+class Knight extends Piece {
 		
 	public Knight(Color color)
 	{
@@ -41,7 +41,7 @@ class Knight extends Token {
 	
 	@Override
 	public void show() {
-		if (color == Color.WHITE) {
+		if (this.color == Color.WHITE) {
 			console.out(TypeToken.KNIGHT.getKeyword().toLowerCase());
 		} 
 		else {

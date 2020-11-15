@@ -1,4 +1,4 @@
-public class Shift {
+class Shift {
 
 	private int valor;
 
@@ -20,17 +20,16 @@ public class Shift {
 
     public static void main(String[] args) {
         Console console = new Console();
-        Shift turno;
+        Shift shift;
         for (int i = 0; i < 10; i++) {
-            turno = new Shift();
-            console.out("Toca: " + turno.toca() + "\n");
-            console.out("No toca: " + turno.noToca() + "\n");
-            turno.cambiar();
+            shift = new Shift();
+            console.out("Toca: " + shift.toca() + "\n");
+            console.out("No toca: " + shift.noToca() + "\n");
+            shift.cambiar();
             console.out("Cambiado\n");
-            console.out("Toca: " + turno.toca() + "\n");
-            console.out("No toca: " + turno.noToca() + "\n");
+            console.out("Toca: " + shift.toca() + "\n");
+            console.out("No toca: " + shift.noToca() + "\n");
             console.out("\n");
         }
     }
-	
 }

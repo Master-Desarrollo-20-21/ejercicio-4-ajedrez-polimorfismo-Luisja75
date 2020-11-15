@@ -5,7 +5,7 @@ class Chess {
 
 	private Board board;
 	private Player[] players; 
-    private Shift shift;    
+    private Shift shift;
 
     public Chess()
     {
@@ -17,14 +17,15 @@ class Chess {
 	    shift = new Shift();
     }
     
-	private void play() { 
+	private void play() {
+		boolean win = false;;
         board.show();
         do {
         	Movement movement = board.getMovement(players[shift.toca()].getColor());
-        	board.moveToken(movement.getOrigin(), movement.getDestination());
+        	win = board.moveToken(movement.getOrigin(), movement.getDestination());
             board.show();
         	shift.cambiar();
-        } while (!board.win());
+        } while (!win);
         
         players[shift.noToca()].showWinner();
 	} 

@@ -1,4 +1,4 @@
-class Pawn extends Token {
+class Pawn extends Piece {
 
 	private static final int LIMIT_NUMBER_VOX_MOVEMENT = 1;
 	private static final int LIMIT_NUMBER_VOX_FIRST_MOVEMENT = 2;
@@ -50,7 +50,7 @@ class Pawn extends Token {
 	
 	@Override
 	public void show() {
-		if (color == Color.WHITE) {
+		if (this.color == Color.WHITE) {
 			console.out(TypeToken.PAWN.getKeyword().toLowerCase());
 		} 
 		else {

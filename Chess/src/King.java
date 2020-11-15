@@ -1,4 +1,4 @@
-class King extends Token {
+class King extends Piece {
 	
 	private static final int LIMIT_NUMBER_VOX_MOVEMENT = 1;
 	
@@ -40,7 +40,7 @@ class King extends Token {
 	
 	@Override
 	public void show() {
-		if (color == Color.WHITE) {
+		if (this.color == Color.WHITE) {
 			console.out(TypeToken.KING.getKeyword().toLowerCase());
 		} 
 		else {

@@ -1,9 +1,9 @@
-abstract class Token {
+abstract class Piece {
 
 	protected Console console;
 	protected Color color;			
 	
-	public Token(Color color) 
+	public Piece(Color color) 
 	{
 		console = new Console();
 		this.color = color;
@@ -21,11 +21,16 @@ abstract class Token {
 		return (color != null);
 	}			
 	
-	public boolean isMovementAllow(Movement movement, boolean isEatPeace){
-		if (this.isMovementAllow(movement.getDataMovement().getType(), isEatPeace) && 
-			this.isDirectionAllow(movement.getDataMovement().getDirection()) && 
-			this.isFreeWay(movement.getDataMovement().getFreeWay()) &&
-			this.isDistanceAllow(movement.getDataMovement().getDistance())) {
+	public boolean isMovementAllow(DataMovement dataMovement){
+		if (dataMovement.getType() == TypeMovement.UNKNOWN){
+			console.out("El movimiento introducido es desconocido\n");
+			return false;
+		}
+		
+		if (this.isMovementAllow(dataMovement.getType(), dataMovement.isEatPeace()) && 
+			this.isDirectionAllow(dataMovement.getDirection()) && 
+			this.isFreeWay(dataMovement.isFreeWay()) &&
+			this.isDistanceAllow(dataMovement.getDistance())) {
 			return true;
 		}
 		else {
