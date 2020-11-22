@@ -13,6 +13,16 @@ class Pawn extends Piece {
 	}
 	
 	@Override
+	public void setMovementDone() {
+		this.firstMovement = false;
+	}
+	
+	@Override
+	public boolean isKing() {
+		return false;
+	}
+	
+	@Override
 	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return  (color == Color.WHITE && typeDirection==TypeDirection.FORWARD) ||
 				(color == Color.BLACK && typeDirection==TypeDirection.BACK);
@@ -41,17 +51,7 @@ class Pawn extends Piece {
 	}	
 	
 	@Override
-	public void setMovementDone() {
-		this.firstMovement = false;
-	}
-	
-	@Override
-	public boolean isKing() {
-		return false;
-	}
-	
-	@Override
-	public String getSymbol() {
+	protected String getSymbol() {
 		if (this.color == Color.WHITE) {
 			return Pawn.UNICODE_PIECE_WHITE;
 		} 

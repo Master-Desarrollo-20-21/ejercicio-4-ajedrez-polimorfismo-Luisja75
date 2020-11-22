@@ -75,7 +75,7 @@ class DataMovement {
 		int nextColum = origin.getColum() + incrementToNextColum;
 		for (int i=1; i<distance; i++) {
 			Coordinate nextCoordenate = new Coordinate(nextFila, nextColum);
-			Square box = board.getBox(nextCoordenate);
+			Square box = board.getSquare(nextCoordenate);
 			if (box.hasPiece()) {
 				this.freeWay = false;
 				return;
@@ -89,8 +89,8 @@ class DataMovement {
 	
 	private void setEatPeace(Board board, Color color, Coordinate destination) {
 		this.eatPeace = false;
-		Square boxDestination = board.getBox(destination);
-		if(!boxDestination.IsColor(color)) {
+		Square boxDestination = board.getSquare(destination);
+		if(!boxDestination.isColor(color)) {
 			this.eatPeace = true;
 		}
 	}

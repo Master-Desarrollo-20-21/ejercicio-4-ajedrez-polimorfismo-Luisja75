@@ -8,6 +8,15 @@ class Queen extends Piece {
 	}
 	
 	@Override
+	public void setMovementDone() {
+	}
+	
+	@Override
+	public boolean isKing() {
+		return false;
+	}
+	
+	@Override
 	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return  true;
 	}
@@ -28,19 +37,10 @@ class Queen extends Piece {
 			console.out("El movimiento introducido no está permitido porque hay piezas en el camnino\n");
 		}
 		return freeWay;
-	}	
-	
-	@Override
-	public void setMovementDone() {
 	}
 	
 	@Override
-	public boolean isKing() {
-		return false;
-	}
-	
-	@Override
-	public String getSymbol() {
+	protected String getSymbol() {
 		if (this.color == Color.WHITE) {
 			return Queen.UNICODE_PIECE_WHITE;
 		} 

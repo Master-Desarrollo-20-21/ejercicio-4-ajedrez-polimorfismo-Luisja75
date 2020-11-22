@@ -22,7 +22,7 @@ class Chess {
         board.show();
         do {
         	Movement movement = board.getMovement(players[shift.toca()].getColor());
-        	win = board.moveToken(movement.getOrigin(), movement.getDestination());
+        	win = board.movePiece(movement.getOrigin(), movement.getDestination());
             board.show();
         	shift.cambiar();
         } while (!win);

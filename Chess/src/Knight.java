@@ -9,6 +9,15 @@ class Knight extends Piece {
 	}
 	
 	@Override
+	public void setMovementDone() {
+	}
+	
+	@Override
+	public boolean isKing() {
+		return false;
+	}
+	
+	@Override
 	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return true;
 	}
@@ -34,16 +43,7 @@ class Knight extends Piece {
 	}	
 	
 	@Override
-	public void setMovementDone() {
-	}
-	
-	@Override
-	public boolean isKing() {
-		return false;
-	}
-	
-	@Override
-	public String getSymbol() {
+	protected String getSymbol() {
 		if (this.color == Color.WHITE) {
 			return Knight.UNICODE_PIECE_WHITE;
 		} 

@@ -13,31 +13,31 @@ class Coordinate {
 		this.column = column;
 	}
 
-    public boolean equal(Coordinate coordenada) {
-        assert coordenada != null;
-        return row == coordenada.row && column == coordenada.column;
+    public boolean equal(Coordinate coordinate) {
+        assert coordinate != null;
+        return row == coordinate.row && column == coordinate.column;
     }
 
-    public boolean equalRow(Coordinate coordenada) {
-        assert coordenada != null;
-        return column == coordenada.column;
+    public boolean equalRow(Coordinate coordinate) {
+        assert coordinate != null;
+        return column == coordinate.column;
     }
 
-    public boolean equalColumn(Coordinate coordenada) {
-        assert coordenada != null;
-        return row == coordenada.row;
+    public boolean equalColumn(Coordinate coordinate) {
+        assert coordinate != null;
+        return row == coordinate.row;
     }
     
-    public void recoger(int limitDown, int limitUp) {
+    public void get() {
         Console console = new Console();
 		String value;
 		do {
 			console.out("Introduce la cordenada (A1 ... H8): ");
 	        value = console.inString();
-		} while (!coordenadaValida(value));   	
+		} while (!coordinateValid(value));   	
     }  
     
-	private boolean coordenadaValida(String value) {
+	private boolean coordinateValid(String value) {
 		if (value.length() !=  2){
 			return false;
 		}

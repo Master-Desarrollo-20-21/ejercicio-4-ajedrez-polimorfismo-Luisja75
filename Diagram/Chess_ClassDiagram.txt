@@ -1,0 +1,183 @@
+@startuml
+
+title Chess - Class Diagram
+
+class Chess
+{
+	+ Board : board
+	+ Player[2] : players
+	+ Shift : shift
+	+ play()
+	+ {static} main()
+}
+
+Class Board
+{
+	+ Square[8][8] : squares
+	+ show()
+    + getMovement(Color color)
+    + getPiece(Coordinate coordenada)
+    + movePiece(Coordinate origin, Coordinate destination)
+}
+
+Class Player
+{
+    + Color color
+    + isWhite()
+    + showWinner()
+    + getColor()
+}
+
+Class Shift
+{
+    + int valor
+    + toca()
+	+ noToca()
+	+ cambiar()
+}
+
+Class Movement
+{
+	+ Coordinate origin
+	+ Coordinate destination
+	+ getOrigin()
+	+ getDestination()
+}
+
+Class DataMovement
+{
+	+ GetType()
+	+ getDirection()
+	+ getDistance()
+	+ isFreeWay()
+	+ isEatPeace()
+}
+
+class Coordinate
+{
+    equal(Coordinate coordinate)
+    equalRow(Coordinate coordinate)
+    equalColumn(Coordinate coordinate)
+    get()
+    getRow()
+    getColumn()
+}
+
+Class Square
+{
+	+ Piece piece
+	+ getPiece()
+	+ setPiece()
+	+ show()
+	+ hasPiece()
+	+ isKing()
+	+ isColor()
+}
+
+abstract Class Piece
+{
+    + Color color
+	+ isPlayer(Color color)
+	+ isMovementAllow(DataMovement dataMovement)
+	+ show()
+    + {abstract} setMovementDone();
+    + {abstract} isKing();
+}
+
+Class Bishop
+{
+	+ setMovementDone()
+	+ isKing()
+}
+
+Class King
+{
+	+ setMovementDone()
+	+ isKing()
+}
+
+Class Knight
+{
+	+ setMovementDone()
+	+ isKing()
+}
+
+Class Pawn
+{
+	+ boolean firstMovement
+	+ setMovementDone()
+	+ isKing()
+}
+
+Class Queen
+{
+	+ setMovementDone()
+	+ isKing()
+}
+
+Class Rook
+{
+	+ setMovementDone()
+	+ isKing()
+}
+
+enum TypeMovement
+{
+    HORIZONTAL
+    VERTICAL
+    DIAGONAL
+	L
+	UNKNOWN
+}
+
+enum TypeDirection
+{
+    FORWARD
+    BACK
+	UNKNOWN
+}
+
+enum Color
+{
+    BLACK
+    WHITE
+}
+
+Class Console
+{
+}
+
+Chess *-- Board
+Chess *-- "2" Player
+Chess *-- Shift
+Player *-- Color
+Board *-- "[8][8]" Square
+Board --> Color
+Board ..> "16" Piece
+Board ..> Movement
+Board ..> Coordinate
+Movement ..> Coordinate
+DataMovement *-- TypeMovement
+DataMovement *-- TypeDirection
+DataMovement ..> Board
+DataMovement ..> Color
+DataMovement ..> Movement
+DataMovement ..> Coordinate
+Square o-- Piece
+Piece *-- Color
+Piece ..> DataMovement
+Piece <|-- Bishop
+Piece <|-- Rook
+Piece <|-- Knight
+Piece <|-- King
+Piece <|-- Queen
+Piece <|-- Pawn
+
+Chess ..> Console
+Board ..> Console
+Player ..> Console
+Movement ..> Console
+Coordinate ..> Console
+Piece ..> Console
+
+@enduml

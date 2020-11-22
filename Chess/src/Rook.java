@@ -8,6 +8,15 @@ class Rook extends Piece {
 	}
 	
 	@Override
+	public void setMovementDone() {
+	}
+	
+	@Override
+	public boolean isKing() {
+		return false;
+	}
+	
+	@Override
 	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return  true;
 	}
@@ -29,18 +38,9 @@ class Rook extends Piece {
 		}
 		return freeWay;
 	}	
-	
-	@Override
-	public void setMovementDone() {
-	}
-	
-	@Override
-	public boolean isKing() {
-		return false;
-	}
 
 	@Override
-	public String getSymbol() {
+	protected String getSymbol() {
 		if (this.color == Color.WHITE) {
 			return Rook.UNICODE_PIECE_WHITE;
 		} 

@@ -6,10 +6,9 @@ class Movement {
 	
 	public Movement() {
 		this.console = new Console();
-		requestCoordenates();
 	}
 
-	private void requestCoordenates() {
+	public void requestCoordenates() {
 		requestOrigen();
 		requestDestination();	
 	}
@@ -17,13 +16,13 @@ class Movement {
     private void requestOrigen(){
 		console.out("Introduce coordenada ficha ORIGEN\n");
 		origin = new Coordinate();
-		origin.recoger(1,8);
+		origin.get();
     }
 	
     private void requestDestination() {
 		console.out("Introduce coordenada ficha DESTINO\n");
 		destination = new Coordinate();
-		destination.recoger(1,8);
+		destination.get();
     }
 	
 	public Coordinate getOrigin() {

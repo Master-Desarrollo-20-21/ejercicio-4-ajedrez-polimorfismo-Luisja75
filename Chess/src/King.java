@@ -6,12 +6,15 @@ class King extends Piece {
 	
 	public King(Color color){
 		super(color);
-		
-		String unicodePiece = King.UNICODE_PIECE_WHITE;
-		if (color == Color.BLACK) {
-			unicodePiece = King.UNICODE_PIECE_BLACK;
-		}
-		this.setUnicodePiece(unicodePiece);		
+	}
+	
+	@Override
+	public void setMovementDone() {
+	}
+	
+	@Override
+	public boolean isKing() {
+		return true;
 	}
 	
 	@Override
@@ -35,19 +38,10 @@ class King extends Piece {
 			console.out("El movimiento introducido no está permitido porque hay piezas en el camnino\n");
 		}
 		return freeWay;
-	}	
-	
-	@Override
-	public void setMovementDone() {
 	}
 	
 	@Override
-	public boolean isKing() {
-		return true;
-	}
-	
-	@Override
-	public String getSymbol() {
+	protected String getSymbol() {
 		if (this.color == Color.WHITE) {
 			return King.UNICODE_PIECE_WHITE;
 		} 

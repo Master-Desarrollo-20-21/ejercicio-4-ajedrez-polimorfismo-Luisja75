@@ -9,6 +9,15 @@ class Bishop extends Piece {
 	}
 	
 	@Override
+	public void setMovementDone() {
+	}
+	
+	@Override
+	public boolean isKing() {
+		return true;
+	}
+	
+	@Override
 	protected boolean isDirectionAllow(TypeDirection typeDirection) {
 		return  true;
 	}
@@ -30,18 +39,9 @@ class Bishop extends Piece {
 		}
 		return freeWay;
 	}	
-	
+		
 	@Override
-	public void setMovementDone() {
-	}
-	
-	@Override
-	public boolean isKing() {
-		return true;
-	}
-	
-	@Override
-	public String getSymbol() {
+	protected String getSymbol() {
 		if (this.color == Color.WHITE) {
 			return Bishop.UNICODE_PIECE_WHITE;
 		} 

@@ -30,7 +30,7 @@ class Square {
 		return this.piece!=null && this.piece.isKing();
 	}
 
-	public boolean IsColor(Color color) {
+	public boolean isColor(Color color) {
 		return this.piece!=null && this.piece.isPlayer(color);
 	}		
 }

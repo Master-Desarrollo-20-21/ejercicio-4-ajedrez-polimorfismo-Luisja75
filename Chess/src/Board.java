@@ -73,54 +73,53 @@ class Board {
 	
 	public Movement getMovement(Color color) {
 		console.out("Mueve el jugador " + color + "\n");
-		Movement movement;
+		Movement movement = new Movement();
 		do {
-			movement = new Movement();
+			movement.requestCoordenates();
 		} while (!this.isMovementCorrect(color, movement));   	
-		
 		return movement;
-		}	
-	
-	private boolean isMovementCorrect(Color color, Movement movement) {
-		return coordenadaOrigenValida(color, movement) && 
-			   coordenadaDestinoValida(color, movement) &&
-			   movementAllowInToken(color, movement);
 	}
 	
-	private boolean coordenadaOrigenValida(Color color, Movement movement) {
-		Square box = this.getBox(movement.getOrigin());
+	private boolean isMovementCorrect(Color color, Movement movement) {
+		return coordinateOriginValid(color, movement) && 
+			   coordinateDestinationValid(color, movement) &&
+			   movementAllowInSquare(color, movement);
+	}
+	
+	private boolean coordinateOriginValid(Color color, Movement movement) {
+		Square box = this.getSquare(movement.getOrigin());
 		if(!box.hasPiece()) {
 			console.out("La coordenada origen no tiene ficha\n");
 			return false;
 		}
-		if (!box.IsColor(color)) {
+		if (!box.isColor(color)) {
 			console.out("La coordenada origen tiene una ficha que no es de tu jugador\n");
 			return false;
 		}
 		return true;
 	}
 
-	private boolean coordenadaDestinoValida(Color color, Movement movement) {
-		Square box = this.getBox(movement.getDestination());
-		if(box.IsColor(color)) {
+	private boolean coordinateDestinationValid(Color color, Movement movement) {
+		Square box = this.getSquare(movement.getDestination());
+		if(box.isColor(color)) {
 			console.out("La coordenada destino tiene una ficha de tu jugador\n");
 			return false;
 		}		
 		return true;
 	}
 	
-	private boolean movementAllowInToken(Color color, Movement movement) {
+	private boolean movementAllowInSquare(Color color, Movement movement) {
 		DataMovement dataMovement = new DataMovement(this, color, movement);
-		Square boxOrigin = this.getBox(movement.getOrigin());
+		Square boxOrigin = this.getSquare(movement.getOrigin());
 		Piece tokenOrigin = boxOrigin.getPiece();
 		return tokenOrigin.isMovementAllow(dataMovement);
 	}
 
-	public Square getBox(Coordinate coordenada) {
+	public Square getSquare(Coordinate coordenada) {
 		return squares[coordenada.getRow()-1][coordenada.getColum()-1];
 	}
 
-	public boolean moveToken(Coordinate origin, Coordinate destination) {
+	public boolean movePiece(Coordinate origin, Coordinate destination) {
 		boolean win = false;
 
 		Square squareOrigin = squares[origin.getRow()-1][origin.getColum()-1];
